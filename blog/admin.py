@@ -4,16 +4,17 @@ from .models import Blog, BlogComment
 
 class BlogAdmin(admin.ModelAdmin):
     list_display = (
-        "title",
-        "author",
-        "description",
+        "blog_title",
+        "category",
+        "blog_author",
+        "blog_description",
         "is_public",
         "post_date",
     )
-    list_display_links = ("title",)
+    list_display_links = ("blog_title",)
     search_fields = (
-        "title",
-        "author",
+        "blog_title",
+        "blog_author",
     )
     list_per_page = 5
     list_editable = ("is_public",)

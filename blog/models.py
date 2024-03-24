@@ -4,10 +4,20 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
 
+class Category(models.Model):
+    category_name = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.category_name
+    
+
+
 class Blog(models.Model):
-    title = models.CharField(max_length=100)
-    author = models.CharField(max_length=100)
-    description = models.TextField()
+    blog_title = models.CharField(max_length=100)
+    blog_author = models.CharField(max_length=100)
+    category = models.ForeignKey(Category, related_name='category', on_delete=models.SET_NULL, null=True)
+    blog_description = models.TextField()
     post_date = models.DateField(default=timezone.now)
     is_public = models.BooleanField(default=False)
     slug = models.CharField(max_length=1000, null=True, blank=True)
