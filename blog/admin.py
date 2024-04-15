@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Blog, BlogComment
+from .models import Blog, BlogComment, Category, WeeklySchedule
 
 
 class BlogAdmin(admin.ModelAdmin):
@@ -29,5 +29,7 @@ class BlogcommentAdmin(admin.ModelAdmin):
     list_display_links = ("description",)
 
 
+admin.site.register(Category)
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(BlogComment, BlogcommentAdmin)
+admin.site.register(WeeklySchedule)

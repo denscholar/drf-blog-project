@@ -23,11 +23,11 @@ class Blog(models.Model):
     slug = models.CharField(max_length=1000, null=True, blank=True)
 
     def __str__(self):
-        return self.title + " ==> " + str(self.author)
+        return self.blog_title + " ==> " + str(self.blog_author)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title + "-" + str(self.post_date))
+            self.slug = slugify(self.blog_title + "-" + str(self.post_date))
         return super().save(*args, **kwargs)
 
 
@@ -39,3 +39,5 @@ class BlogComment(models.Model):
 
     def __str__(self):
         return self.blog
+    
+
