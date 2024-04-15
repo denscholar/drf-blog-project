@@ -1,6 +1,5 @@
 from rest_framework import serializers
-
-from blog.models import Blog
+from blog.models import Blog, Category, WeeklySchedule
 
 
 class BlogSerializer(serializers.ModelSerializer):
@@ -19,3 +18,12 @@ class BlogSerializer(serializers.ModelSerializer):
 
     def get_len_blog_title(self, object):
         return len(object.blog_title)
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    # nestted serializer
+    category_name = serializers.CharField() 
+    category = BlogSerializer(many=True, read_only=True)
+    class Meta:
+        model = Category
+        exclude = ("id",)
