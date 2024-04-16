@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Blog, BlogComment, Category, WeeklySchedule
-
+from .models import Blog, BlogComment, Category
 
 class BlogAdmin(admin.ModelAdmin):
     list_display = (
@@ -32,4 +31,4 @@ class BlogcommentAdmin(admin.ModelAdmin):
 admin.site.register(Category)
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(BlogComment, BlogcommentAdmin)
-admin.site.register(WeeklySchedule)
+
