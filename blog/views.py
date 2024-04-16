@@ -1,10 +1,10 @@
-from .models import Blog, Category, WeeklySchedule
+from .models import Blog, Category
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
-from .serializers import BlogSerializer, CategorySerializer, ScheduleSerializer
-from django.shortcuts import render, get_object_or_404, redirect
+from .serializers import BlogSerializer, CategorySerializer
+from django.shortcuts import get_object_or_404
 
 
 # class-based views
@@ -58,14 +58,14 @@ class Blog_detail(APIView):
 class Category_listApiView(APIView):
     def get(self, request):
         categories = Category.objects.all()
-        serializers = CategorySerializer(categories, many=True)
+        serializers = CategorySerializer(categories, many=True, context={'request': request})
         return Response(data=serializers.data, status=status.HTTP_200_OK)
 
 
 class Category_detailAPIView(APIView):
-    def get(self, request, id):
-        category = get_object_or_404(Category, id=id)
-        serializer = CategorySerializer(category)
+    def get(self, request, pk):
+        category = get_object_or_404(Category, pk=pk)
+        serializer = CategorySerializer(category, context={'request': request})
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 

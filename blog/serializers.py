@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from blog.models import Blog, Category, WeeklySchedule
+from blog.models import Blog, Category
 
 
 class BlogSerializer(serializers.ModelSerializer):
@@ -21,9 +21,24 @@ class BlogSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    # string related
+    # category = serializers.StringRelatedField(many=True)
+
+    # primary key related field
+    # category = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
     # nestted serializer
-    category_name = serializers.CharField() 
-    category = BlogSerializer(many=True, read_only=True)
+    category_name = serializers.CharField()
+
+    category = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name="category_detail",
+    )
+
+
+    # category = BlogSerializer(many=True, read_only=True)
     class Meta:
         model = Category
-        exclude = ("id",)
+        fields = ['category_name', 'category']
+        # exclude = ("id",)
